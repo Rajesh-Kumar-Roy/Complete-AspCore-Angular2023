@@ -1,0 +1,11 @@
+D:\C# project\Skinet\Skinet\Core\bin\Debug\net6.0\Core.deps.json
+D:\C# project\Skinet\Skinet\Core\bin\Debug\net6.0\Core.dll
+D:\C# project\Skinet\Skinet\Core\bin\Debug\net6.0\Core.pdb
+D:\C# project\Skinet\Skinet\Core\obj\Debug\net6.0\Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\C# project\Skinet\Skinet\Core\obj\Debug\net6.0\Core.AssemblyInfoInputs.cache
+D:\C# project\Skinet\Skinet\Core\obj\Debug\net6.0\Core.AssemblyInfo.cs
+D:\C# project\Skinet\Skinet\Core\obj\Debug\net6.0\Core.csproj.CoreCompileInputs.cache
+D:\C# project\Skinet\Skinet\Core\obj\Debug\net6.0\Core.dll
+D:\C# project\Skinet\Skinet\Core\obj\Debug\net6.0\refint\Core.dll
+D:\C# project\Skinet\Skinet\Core\obj\Debug\net6.0\Core.pdb
+D:\C# project\Skinet\Skinet\Core\obj\Debug\net6.0\ref\Core.dll
