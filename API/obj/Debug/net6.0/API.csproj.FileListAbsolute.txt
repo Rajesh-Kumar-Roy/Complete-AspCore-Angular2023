@@ -68,3 +68,7 @@ D:\C# project\Skinet\Skinet\API\bin\Debug\net6.0\Infrastructure.dll
 D:\C# project\Skinet\Skinet\API\bin\Debug\net6.0\Infrastructure.pdb
 D:\C# project\Skinet\Skinet\API\bin\Debug\net6.0\Core.pdb
 D:\C# project\Skinet\Skinet\API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Versioning.dll
+D:\C# project\Skinet\Skinet\API\obj\Debug\net6.0\API.sourcelink.json
+D:\C# project\Skinet\Skinet\API\bin\Debug\net6.0\API.staticwebassets.runtime.json
+D:\C# project\Skinet\Skinet\API\bin\Debug\net6.0\AutoMapper.dll
+D:\C# project\Skinet\Skinet\API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
