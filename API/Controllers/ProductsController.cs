@@ -7,6 +7,7 @@ using Core.Specification;
 using API.Dtos;
 using AutoMapper;
 using System.Collections.Generic;
+using API.Helpers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,7 +18,7 @@ namespace API.Controllers
     {
         private IGenericRepository<Product> _productRepo;
         private IGenericRepository<ProductBrand> _productBrandRepo;
-        private IGenericRepository<ProductType>_productTypeRepo;
+        private IGenericRepository<ProductType> _productTypeRepo;
         private readonly IMapper _mapper;
         public ProductsController(IGenericRepository<Product> productRepo, IGenericRepository<ProductBrand> productBrandRepo, IGenericRepository<ProductType> productTypeRepo, IMapper mapper)
         {
@@ -28,12 +29,17 @@ namespace API.Controllers
         }
         // GET: api/<ProductsController>
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts()
+        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts([FromQuery] ProductSpceParams productParams)
         {
-            var spec = new ProductWithTypesAndBrandsSpec();
-            var products = await _productRepo.ListAsync(spec);
+            var spec = new ProductWithTypesAndBrandsSpec(productParams);
 
-            return Ok(_mapper.Map<IReadOnlyList<ProductToReturnDto>>(products));
+            var countSpec = new ProductWithFiltersForCountSpec(productParams);
+
+            var totalItems = await _productRepo.CountAsync(spec);
+
+            var products = await _productRepo.ListAsync(spec);
+            var data = _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
+            return Ok(new Pagination<ProductToReturnDto>(productParams.PageIndex, productParams.PageSize, totalItems, data));
         }
         // GET: api/<ProductsController>
         [HttpGet("brands")]
