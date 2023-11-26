@@ -7,6 +7,7 @@ using Infrastructure.Common.Extension;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,11 @@ builder.Services.AddControllers();
 
 
 builder.Services.AddDbContext<StoreContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddSingleton<IConnectionMultiplexer>(c =>
+{
+    var configuration = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"), true);
+    return ConnectionMultiplexer.Connect(configuration);
+});
 builder.Services.AddApplicationServices();
 builder.Services.AddSwaggerDocumentation();
 
