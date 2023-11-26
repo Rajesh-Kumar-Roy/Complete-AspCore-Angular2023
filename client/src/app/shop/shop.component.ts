@@ -5,13 +5,14 @@ import {IBrand} from "../shared/models/brand";
 import {IProductType} from "../shared/models/productType";
 import {ShopParams} from "../shared/models/ShopParams";
 
+
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.scss']
 })
 export class ShopComponent implements OnInit {
-  @ViewChild('search',{static: true}) searchTerm!: ElementRef;
+  @ViewChild('search',{static: false}) searchTerm!: ElementRef;
   products!: IProduct[];
   brands!: IBrand[];
   productTypes!: IProductType[];
