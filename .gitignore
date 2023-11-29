@@ -675,6 +675,7 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+*.bin
 
 # Chutzpah Test files
 _Chutzpah*
@@ -977,3 +978,4 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio
+/API/obj/Debug/net6.0/API.AssemblyInfo.cs
