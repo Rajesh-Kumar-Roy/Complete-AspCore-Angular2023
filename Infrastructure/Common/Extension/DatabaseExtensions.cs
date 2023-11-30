@@ -1,5 +1,8 @@
-﻿using Infrastructure.Data;
+﻿using Core.Entities.Identity;
+using Infrastructure.Data;
+using Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,14 +21,19 @@ namespace Infrastructure.Common.Extension
             });
         }
 
-        public static void DatabaseAutoMigration(this WebApplication app)
+        public static async Task DatabaseAutoMigration(this WebApplication app)
         {
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
 
                 var context = services.GetRequiredService<StoreContext>();
-                context.Database.Migrate();
+                await context.Database.MigrateAsync();
+
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                var identityContext = services.GetRequiredService<AppIdentityDbContext>();
+                await identityContext.Database.MigrateAsync();
+                await AppIdentityDbContextSeed.SeedUserAsync(userManager);
             }
         }
     }

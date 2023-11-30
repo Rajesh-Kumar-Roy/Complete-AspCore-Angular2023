@@ -5,6 +5,7 @@ using API.Middleware;
 using Core.Interfaces;
 using Infrastructure.Common.Extension;
 using Infrastructure.Data;
+using Infrastructure.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
@@ -18,12 +19,14 @@ builder.Services.AddControllers();
 
 
 builder.Services.AddDbContext<StoreContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection")));
 builder.Services.AddSingleton<IConnectionMultiplexer>(c =>
 {
     var configuration = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"), true);
     return ConnectionMultiplexer.Connect(configuration);
 });
 builder.Services.AddApplicationServices();
+builder.Services.AddIdentityService();
 builder.Services.AddSwaggerDocumentation();
 
 builder.Services.AddCors(opts =>
