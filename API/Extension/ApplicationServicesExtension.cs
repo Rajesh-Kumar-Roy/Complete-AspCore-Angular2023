@@ -1,16 +1,22 @@
-﻿using API.Errors;
+﻿using System.Runtime.CompilerServices;
+using API.Errors;
 using API.Helpers;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace API.Extension
 {
     public static class ApplicationServicesExtension
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddEndpointsApiExplorer();
+            services.AddSingleton<SymmetricSecurityKey>(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Token:Key"])));
+            services.AddTransient<ITokenService, TokenService>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

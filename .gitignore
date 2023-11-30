@@ -978,3 +978,6 @@ FodyWeavers.xsd
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio
 /API/obj
+/API/bin
+/Infrastructure/obj
+/Infrastructure/bin

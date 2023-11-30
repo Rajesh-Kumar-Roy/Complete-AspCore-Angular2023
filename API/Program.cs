@@ -1,14 +1,14 @@
-using API.Errors;
 using API.Extension;
-using API.Helpers;
 using API.Middleware;
 using Core.Interfaces;
 using Infrastructure.Common.Extension;
 using Infrastructure.Data;
 using Infrastructure.Identity;
-using Microsoft.AspNetCore.Mvc;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using StackExchange.Redis;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,8 +25,8 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(c =>
     var configuration = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"), true);
     return ConnectionMultiplexer.Connect(configuration);
 });
-builder.Services.AddApplicationServices();
-builder.Services.AddIdentityService();
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddIdentityService(builder.Configuration);
 builder.Services.AddSwaggerDocumentation();
 
 builder.Services.AddCors(opts =>
@@ -53,6 +53,7 @@ app.UseStaticFiles();
 
 app.UseCors("CorsPolicy");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 
