@@ -1,13 +1,12 @@
 ﻿using API.Dtos;
 using API.Errors;
+using API.Extension;
+using AutoMapper;
 using Core.Entities.Identity;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using API.Extension;
-using AutoMapper;
 
 namespace API.Controllers
 {
@@ -36,11 +35,10 @@ namespace API.Controllers
             {
                 Email = user.Email,
                 Token = _tokenService.CreateToken(user),
-                DispalyName = user.DisplayName
+                DisplayName = user.DisplayName
             };
         }
 
-        [Authorize]
         [HttpGet("emailexists")]
         public async Task<ActionResult<bool>> CheckEmailAsync([FromQuery] string email)
         {
@@ -64,9 +62,9 @@ namespace API.Controllers
 
             user.Address = _mapper.Map<AddressDto, Address>(address);
 
-            var result =await _userManager.UpdateAsync(user);
+            var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded) return Ok(_mapper.Map<Address, AddressDto>(user.Address));
-            
+
             return BadRequest("Problem updating the user.");
         }
 
@@ -84,7 +82,7 @@ namespace API.Controllers
             {
                 Email = user.Email,
                 Token = _tokenService.CreateToken(user),
-                DispalyName = user.DisplayName
+                DisplayName = user.DisplayName
             };
         }
 
@@ -94,7 +92,7 @@ namespace API.Controllers
             if (CheckEmailAsync(registerDto.Email).Result.Value)
             {
                 return new BadRequestObjectResult(new ApiValidationErrorResponse
-                    { Errors = new[] { "Email address is in use" } });
+                { Errors = new[] { "Email address is in use" } });
             }
             var user = new AppUser
             {
@@ -109,7 +107,7 @@ namespace API.Controllers
 
             return new UserDto
             {
-                DispalyName = user.DisplayName,
+                DisplayName = user.DisplayName,
                 Token = _tokenService.CreateToken(user),
                 Email = user.Email
             };
