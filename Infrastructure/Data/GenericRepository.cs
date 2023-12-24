@@ -8,9 +8,12 @@ namespace Infrastructure.Data
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         private StoreContext _context;
+        //private readonly Core.Interfaces.IDbContextFactory<StoreContext> _dbContextFactory;
+
         public GenericRepository(StoreContext context)
         {
             _context = context;
+            //_dbContextFactory = dbContextFactory;
         }
 
 
@@ -26,7 +29,14 @@ namespace Infrastructure.Data
 
         public async Task<IReadOnlyList<T>> ListAllAsync()
         {
+            //var dbContext = _dbContextFactory.CreateDbContext();
+            // using (var context = _dbContextFactory.CreateDbContext())
+            // {
+            // }
+
             return await _context.Set<T>().ToListAsync();
+            
+            
         }
 
         public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
@@ -36,6 +46,22 @@ namespace Infrastructure.Data
         public async Task<int> CountAsync(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).CountAsync();
+        }
+
+        public void Add(T entity)
+        {
+            _context.Set<T>().Add(entity);
+        }
+
+        public void Update(T entity)
+        {
+            _context.Set<T>().Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+        }
+
+        public void Delete(T entity)
+        {
+            _context.Set<T>().Remove(entity);
         }
 
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)

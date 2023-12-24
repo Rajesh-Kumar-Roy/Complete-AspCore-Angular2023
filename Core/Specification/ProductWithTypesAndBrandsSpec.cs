@@ -1,16 +1,11 @@
 ﻿using Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.Specification
 {
-    public class ProductWithTypesAndBrandsSpec: BaseSpecification<Product>
+    public class ProductWithTypesAndBrandsSpec : BaseSpecification<Product>
     {
         public ProductWithTypesAndBrandsSpec(ProductSpceParams productParams)
-            : base(x=> 
+            : base(x =>
             (string.IsNullOrEmpty(productParams.Search) || x.Name.ToLower().Contains(productParams.Search)) &&
             (!productParams.BrandId.HasValue || x.ProductBrandId == productParams.BrandId) &&
             (!productParams.TypeId.HasValue || x.ProductTypeId == productParams.TypeId))
@@ -29,7 +24,7 @@ namespace Core.Specification
                         AddOrderBy(p => p.Price);
                         break;
                     case "priceDesc":
-                        AddOrderByDescending(p=> p.Price);
+                        AddOrderByDescending(p => p.Price);
                         break;
                     default:
                         AddOrderBy(p => p.Name);

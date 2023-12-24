@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20231203193658_orderEntityAdded")]
-    partial class orderEntityAdded
+    [Migration("20231205173659_OrderMigrationAdded")]
+    partial class OrderMigrationAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -249,14 +249,14 @@ namespace Infrastructure.Data.Migrations
                             b1.Property<int>("OrderItemId")
                                 .HasColumnType("int");
 
+                            b1.Property<string>("PictureUrl")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
                             b1.Property<int>("ProductItemId")
                                 .HasColumnType("int");
 
                             b1.Property<string>("ProductName")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("ProductUrl")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)");
 

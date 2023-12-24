@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Core.Specification
+﻿namespace Core.Specification
 {
     public class ProductSpceParams
     {
@@ -26,7 +20,7 @@ namespace Core.Specification
         public string? Search
         {
             get => _search;
-            set=> _search = value.ToLower();
+            set => _search = value.ToLower();
         }
     }
 }
