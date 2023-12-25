@@ -12,7 +12,7 @@ namespace Infrastructure.Data
 
         public GenericRepository(StoreContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
             //_dbContextFactory = dbContextFactory;
         }
 

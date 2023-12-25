@@ -5,9 +5,13 @@ import { PagingHeaderComponent } from './Components/paging-header/paging-header.
 import { PagerComponent } from './Components/pager/pager.component';
 import {CarouselModule} from "ngx-bootstrap/carousel";
 import { OrderTotalsComponent } from './Components/order-totals/order-totals.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BsDropdownModule} from "ngx-bootstrap/dropdown";
 import { TextInputComponent } from './Components/text-input/text-input.component';
+import { CdkStepperModule} from "@angular/cdk/stepper";
+import { StepperComponent } from './Components/stepper/stepper.component';
+import { BasketSummaryComponent } from './Components/basket-summary/basket-summary.component';
+import {RouterModule} from "@angular/router";
 
 
 
@@ -16,14 +20,20 @@ import { TextInputComponent } from './Components/text-input/text-input.component
     PagingHeaderComponent,
     PagerComponent,
     OrderTotalsComponent,
-    TextInputComponent
+    TextInputComponent,
+    StepperComponent,
+    BasketSummaryComponent
   ],
   imports: [
     CommonModule,
     PaginationModule.forRoot(),
     CarouselModule.forRoot(),
     BsDropdownModule.forRoot(),
-    ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
+
+    CdkStepperModule,
+    RouterModule
   ],
   exports:[
     PaginationModule,
@@ -31,9 +41,14 @@ import { TextInputComponent } from './Components/text-input/text-input.component
     PagerComponent,
     CarouselModule,
     OrderTotalsComponent,
+    FormsModule,
     ReactiveFormsModule,
+
     BsDropdownModule,
-    TextInputComponent
+    TextInputComponent,
+    CdkStepperModule,
+    StepperComponent,
+    BasketSummaryComponent
   ]
 })
 export class SharedModule { }

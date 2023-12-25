@@ -62,6 +62,7 @@ namespace API.Extension
             {
                 opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });
+            services.AddTransient<StoreContext>();
             services.AddSingleton<IConnectionMultiplexer>(c =>
             {
                 var options = ConfigurationOptions.Parse(config.GetConnectionString("Redis"));
@@ -72,8 +73,8 @@ namespace API.Extension
             //services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddSingleton<SymmetricSecurityKey>(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Token:Key"])));
             services.AddSingleton<Hashtable>();
