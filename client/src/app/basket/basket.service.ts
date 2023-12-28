@@ -19,9 +19,26 @@ export class BasketService {
   shipping = 0;
   constructor(private http: HttpClient) { }
 
+
+  createPaymentIntent(){
+    return this.http.post(this.baseUrl + 'payments/' + this.getCurrentBasketValue()?.id,{})
+      .pipe(
+        //@ts-ignore
+        map((basket: IBasket) =>{
+          this.basketSource.next(basket);
+          console.log(this.getCurrentBasketValue());
+        })
+      );
+  }
   setShippingPrice(deliveryMethod: IDeliveryMethod){
     this.shipping = deliveryMethod.price;
+    const basket = this.getCurrentBasketValue();
+    // @ts-ignore
+    basket?.deliveryMethodId = deliveryMethod.id;
+    // @ts-ignore
+    basket?.shippingPrice =deliveryMethod.price;
     this.calculateTotals();
+    this.setBasket(basket);
   }
   getBasket(id: string){
     return this.http.get(this.baseUrl + 'basket?id='+id)
@@ -29,13 +46,14 @@ export class BasketService {
         // @ts-ignore
         map((basket: IBasket) => {
           this.basketSource.next(basket);
+          // @ts-ignore
+          this.shipping = basket.shippingPrice;
           this.calculateTotals();
-
         })
       );
   }
 
-  setBasket(basket: IBasket){
+  setBasket(basket: IBasket| null){
     // @ts-ignore
     return this.http.post(this.baseUrl + 'basket',basket).subscribe((response: IBasket)=>{
       this.basketSource.next(response);

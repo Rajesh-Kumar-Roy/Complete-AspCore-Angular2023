@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AccountService} from "../account/account.service";
 import {Observable} from "rxjs";
 import {IBasketTotals} from "../shared/models/basket";
 import {BasketService} from "../basket/basket.service";
+import {CdkStepper} from "@angular/cdk/stepper";
 
 @Component({
   selector: 'app-checkout',
@@ -18,6 +19,7 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     //this.createCheckoutForm();
     this.getAddressFormValues();
+    this.getDeliveryMethodValue();
     //@ts-ignore
     this.basketTotal$ = this.basketService.basketTotal$;
   }
@@ -64,6 +66,14 @@ export class CheckoutComponent implements OnInit {
     },error => {
       console.log(error);
     })
+  }
+
+  getDeliveryMethodValue(){
+    const basket = this.basketService.getCurrentBasketValue();
+    if(basket?.deliveryMethodId !== null){
+      // @ts-ignore
+      this.checkoutForm.get('deliveryForm')?.get('deliveryMethod')?.patchValue(basket?.deliveryMethodId.toString());
+    }
   }
 
 }
