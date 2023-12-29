@@ -57,7 +57,7 @@ namespace API.Extension
         public static IServiceCollection AddApplicationServices(this IServiceCollection services,
           IConfiguration config)
         {
-            //services.AddSingleton<IResponseCacheService, ResponseCacheService>();
+            services.AddSingleton<IResponseCacheService, ResponseCacheService>();
             services.AddDbContext<StoreContext>(opt =>
             {
                 opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
@@ -70,7 +70,6 @@ namespace API.Extension
             });
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
-            //services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IPaymentService, PaymentService>();

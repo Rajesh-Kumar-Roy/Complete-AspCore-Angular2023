@@ -28,6 +28,7 @@ namespace API.Controllers
             _mapper = mapper;
         }
         // GET: api/<ProductsController>
+        [Cached(600)]
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts([FromQuery] ProductSpceParams productParams)
         {
@@ -42,12 +43,14 @@ namespace API.Controllers
             return Ok(new Pagination<ProductToReturnDto>(productParams.PageIndex, productParams.PageSize, totalItems, data));
         }
         // GET: api/<ProductsController>
+        [Cached(600)]
         [HttpGet("brands")]
         public async Task<ActionResult<List<ProductBrand>>> GetProductBrands()
         {
             return Ok(await _productBrandRepo.ListAllAsync());
         }
         // GET: api/<ProductsController>
+        [Cached(600)]
         [HttpGet("types")]
         public async Task<ActionResult<List<ProductType>>> GetProductTypes()
         {
@@ -55,6 +58,7 @@ namespace API.Controllers
         }
 
         // GET api/<ProductsController>/5
+        [Cached(600)]
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
         {

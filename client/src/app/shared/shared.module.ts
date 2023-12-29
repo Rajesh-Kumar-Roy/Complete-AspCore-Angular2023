@@ -29,9 +29,8 @@ import {RouterModule} from "@angular/router";
     PaginationModule.forRoot(),
     CarouselModule.forRoot(),
     BsDropdownModule.forRoot(),
-    FormsModule,
     ReactiveFormsModule,
-
+    FormsModule,
     CdkStepperModule,
     RouterModule
   ],
@@ -41,9 +40,8 @@ import {RouterModule} from "@angular/router";
     PagerComponent,
     CarouselModule,
     OrderTotalsComponent,
-    FormsModule,
     ReactiveFormsModule,
-
+    FormsModule,
     BsDropdownModule,
     TextInputComponent,
     CdkStepperModule,
