@@ -18,6 +18,34 @@ services:
       - 8081:8081
     depends_on:
       - redis
+
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: appuser
+    ports:
+      - 5432:5432  
+
+  # db:
+  #   image: mcr.microsoft.com/mssql/server
+  #   container_name: sql_server
+  #   environment:
+  #     SA_PASSWORD: "secret"  # Replace with a strong password
+  #     ACCEPT_EULA: "Y"
+  #   ports:
+  #     - "1433:1433"
+  #   volumes:
+  #     - sql_data:/var/opt/mssql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
     
 volumes:
   redis-data:
+  sql_data:  

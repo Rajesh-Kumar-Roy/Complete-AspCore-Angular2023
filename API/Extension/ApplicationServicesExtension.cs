@@ -58,10 +58,6 @@ namespace API.Extension
           IConfiguration config)
         {
             services.AddSingleton<IResponseCacheService, ResponseCacheService>();
-            services.AddDbContext<StoreContext>(opt =>
-            {
-                opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
-            });
             services.AddTransient<StoreContext>();
             services.AddSingleton<IConnectionMultiplexer>(c =>
             {
