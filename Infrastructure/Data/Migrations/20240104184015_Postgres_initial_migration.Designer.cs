@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20240101191359_PostGres_intial")]
-    partial class PostGres_intial
+    [Migration("20240104184015_Postgres_initial_migration")]
+    partial class Postgres_initial_migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,7 +67,7 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("DeliveryMethodId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("OrderDate")
+                    b.Property<DateTime>("OrderDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("PaymentIntenId")
@@ -122,8 +122,8 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(180)
-                        .HasColumnType("character varying(180)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
 
                     b.Property<string>("Name")
                         .IsRequired()

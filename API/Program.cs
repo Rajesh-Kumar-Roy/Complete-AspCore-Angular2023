@@ -20,11 +20,11 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<StoreContext>(opt =>
 {
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("IdentityConnection")));
+builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection")));
 
-builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddApplicationServices(builder.Configuration, builder.Environment);
 builder.Services.AddIdentityService(builder.Configuration);
 builder.Services.AddSwaggerDocumentation();
 

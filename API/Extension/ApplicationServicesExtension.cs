@@ -9,6 +9,7 @@ using StackExchange.Redis;
 using System.Collections;
 using System.Text;
 using API.Helpers;
+using Infrastructure.Common.Extension;
 
 namespace API.Extension
 {
@@ -55,8 +56,9 @@ namespace API.Extension
 
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services,
-          IConfiguration config)
+          IConfiguration config, IWebHostEnvironment env)
         {
+            EnvironmentChecker.Initialize(env);
             services.AddSingleton<IResponseCacheService, ResponseCacheService>();
             services.AddTransient<StoreContext>();
             services.AddSingleton<IConnectionMultiplexer>(c =>

@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Infrastructure.Data.Migrations
 {
-    public partial class PostGres_intial : Migration
+    public partial class Postgres_initial_migration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,7 +59,7 @@ namespace Infrastructure.Data.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     BuyerEmail = table.Column<string>(type: "text", nullable: false),
-                    OrderDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ShipToAddress_FirstName = table.Column<string>(type: "text", nullable: false),
                     ShipToAddress_LastName = table.Column<string>(type: "text", nullable: false),
                     ShipToAddress_Street = table.Column<string>(type: "text", nullable: false),
@@ -89,7 +89,7 @@ namespace Infrastructure.Data.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
-                    Description = table.Column<string>(type: "character varying(180)", maxLength: 180, nullable: false),
+                    Description = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
                     Price = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
                     PictureUrl = table.Column<string>(type: "text", nullable: false),
                     ProductTypeId = table.Column<int>(type: "integer", nullable: false),
